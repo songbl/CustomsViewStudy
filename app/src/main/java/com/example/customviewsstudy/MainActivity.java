@@ -16,14 +16,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myToggleButton = findViewById(R.id.mytogglebtn);
         button = findViewById(R.id.btnTest);
-        Log.e("====",""+myToggleButton.getStaue());
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Log.e("====",""+myToggleButton.getStaue());
-
-            }
-        });
+//        Log.e("====",""+myToggleButton.getStaue());
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Log.e("====",""+myToggleButton.getStaue());
+//
+//            }
+//        });
     }
 }
