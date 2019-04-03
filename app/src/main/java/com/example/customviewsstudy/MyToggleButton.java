@@ -101,6 +101,7 @@ public class MyToggleButton extends View implements View.OnClickListener {
 
 
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);//执行父类的方法

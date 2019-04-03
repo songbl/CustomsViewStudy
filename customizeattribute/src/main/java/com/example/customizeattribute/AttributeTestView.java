@@ -19,6 +19,11 @@ public class AttributeTestView extends View {
     private Bitmap myBg;
     private Paint paint ;
 
+    /**
+     *
+     * @param context
+     * @param attrs  反射获取XML中的设置
+     */
     public AttributeTestView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
