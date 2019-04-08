@@ -58,7 +58,8 @@ public class MyToggleButton extends View implements View.OnClickListener {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    //    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //改变view的宽高，调用这个方法
         setMeasuredDimension(backgroundBitmap.getWidth(), backgroundBitmap.getHeight());
     }
 
@@ -112,7 +113,7 @@ public class MyToggleButton extends View implements View.OnClickListener {
                 isEnableClick = true;
                 break;
             case MotionEvent.ACTION_MOVE:
-                //2.计算结束值
+                //2.计算结束值（被分解为多次滑动中的一个滑动，结束的坐标）
                 float endX = event.getX();
                 //3.计算偏移量
                 float distanceX = endX - startX;
@@ -128,11 +129,18 @@ public class MyToggleButton extends View implements View.OnClickListener {
                 //5.刷新
                 invalidate();//这个时候是，拖动的过程进行绘制
 
-                Log.e("====","调用了绘制的方法"+slideLeft);
+             //   Log.e("====","调用了绘制的方法"+slideLeft);
 
                 Log.e("====","还原后之前"+startX+"结束的值"+endX);
                 //6.数据还原；继续滑动的时候，这个值需要一直改变，这个方法一直调用，在未完成前，相当于内部的上一次结果（一个滑动过程）
-                startX = event.getX();
+                Log.e("====","一段旅程结束"+endX+"getX"+event.getX());
+
+                /**
+                 *  //  startX = event.getX();
+                 *  将一次滑动分解成数次滑动，这个是一次滑动的结束，进行进行
+                 *   下面这样更好理解。
+                 */
+                startX = endX;
 
                 if(Math.abs(endX - lastX) > 5){
                     //滑动

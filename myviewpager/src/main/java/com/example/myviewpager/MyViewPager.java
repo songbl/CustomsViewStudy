@@ -107,7 +107,7 @@ public class MyViewPager extends ViewGroup {
         return true;
     }
 
-    private void scrollToPager(int tempIndex) {
+    public void scrollToPager(int tempIndex) {
         //可能滑动会越界，滑动的页面超出
         if (tempIndex<0){
             tempIndex = 0;
@@ -117,14 +117,18 @@ public class MyViewPager extends ViewGroup {
         }
         //最终要滑动到的位置
         currentIndex = tempIndex ;
-
+        if(onPagerChangeListener != null){
+//
+            onPagerChangeListener.onScrollToPager(currentIndex);
+        }
         //getScrollX()已经滑动的距离
         int distanceX = currentIndex*getWidth() - getScrollX();
         Log.e("songbl","===getScrollX"+getScrollX()+"==当前 页"+currentIndex+"抬起"+distanceX);
         //移动到指定的位置，瞬间完成
 //        scrollTo(currentIndex*getWidth(),getScrollY());
 
-        scroller.startScroll(getScrollX(),getScrollY(),distanceX,0);
+       // scroller.startScroll(getScrollX(),getScrollY(),distanceX,0);
+        scroller.startScroll(getScrollX(),getScrollY(),distanceX,0,500);//添加上了滑动的时间
 
         invalidate();;//onDraw()
     }
@@ -144,5 +148,33 @@ public class MyViewPager extends ViewGroup {
 
             invalidate();
         };
+    }
+
+    /**
+     *
+     * 自己定义监听页面的改变
+     */
+    public interface  OnPagerChangeListener{
+        /**
+         * 当页面改变的时候回调这个方法
+         * @param position
+         */
+        void onScrollToPager(int position);
+    }
+    private OnPagerChangeListener onPagerChangeListener ;
+    public void setOnPagerChangeListener(OnPagerChangeListener onPagerChangeListener ){
+        this.onPagerChangeListener = onPagerChangeListener;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        //这个是绘制当前父类的孩子了
+        for(int i=0;i<getChildCount();i++){
+            View child = getChildAt(i);
+            child.measure(widthMeasureSpec,heightMeasureSpec);
+        }
     }
 }

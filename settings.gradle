@@ -1,1 +1,1 @@
-include ':app', ':customizeattribute', ':myviewpager'
+include ':app', ':customizeattribute', ':myviewpager', ':contractindex'
